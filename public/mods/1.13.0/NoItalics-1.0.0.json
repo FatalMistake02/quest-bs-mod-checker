@@ -1,0 +1,15 @@
+{
+  "name": "No Italics",
+  "description": "Unslants everything in the menu! WARNING, THIS LOOKS VERY WEIRD. THE GAME WAS NOT DESIGNED FOR THIS.",
+  "id": "NoItalics",
+  "version": "1.0.0",
+  "author": "Pink",
+  "authorIcon": "https://avatars.githubusercontent.com/u/62712899?v=4",
+  "modloader": "QuestLoader",
+  "download": "https://github.com/ModdingPink/QuestNoItalics/releases/download/1.0.0/NoItalicsQuestDownload.zip",
+  "dependencies": [],
+  "source": "https://github.com/ModdingPink/QuestNoItalics/",
+  "cover": "https://raw.githubusercontent.com/ModdingPink/QuestNoItalics/main/cover.jpg",
+  "funding": [],
+  "website": null
+}

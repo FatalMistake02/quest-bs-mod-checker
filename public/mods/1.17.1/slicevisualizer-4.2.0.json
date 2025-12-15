@@ -1,0 +1,17 @@
+{
+  "name": "Slice Visualizer",
+  "description": "See your slices right in front of you",
+  "id": "slicevisualizer",
+  "version": "4.2.0",
+  "author": "Henwill8,  Metalit",
+  "authorIcon": "https://avatars.githubusercontent.com/u/110287845?v=4",
+  "modloader": "QuestLoader",
+  "download": "https://github.com/QuestPackageManager/bsqmods/releases/download/mod-mirror/slicevisualizer-4.2.0-6ca04451f465453d773b86657d564cbaecf2d21e.qmod",
+  "dependencies": [],
+  "source": null,
+  "cover": null,
+  "funding": [
+    "https://henwill8.itch.io/slice-visualizer"
+  ],
+  "website": null
+}

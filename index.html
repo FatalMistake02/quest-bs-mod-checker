@@ -1,13 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>quest-bs-mod-checker</title>
+    <title>Quest BS Mod Checker</title>
+    <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+  <header class="header">
+    <h1>Quest Beat Saber Mod Checker</h1>
+    <p>Browse Quest-compatible Beat Saber mods by game version</p>
+  </header>
+
+  <main class="container">
+    <section class="controls">
+      <label>
+        Beat Saber Version
+        <select id="versionSelect">
+          <option value="">Select a version</option>
+        </select>
+      </label>
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search mods…"
+      />
+    </section>
+
+    <section class="content">
+      <div id="modGrid" class="mod-grid"></div>
+      <div id="modDetails" class="mod-details empty">
+        <p>Select a mod to see details</p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

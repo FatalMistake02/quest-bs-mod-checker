@@ -1,0 +1,36 @@
+{
+  "name": "Speecil Tweaks",
+  "description": "This mod brings a bunch of tweaks to the table, such as: Menu Tweaks, Gameplay Tweaks, Quality of Life Tweaks and more!",
+  "id": "SpeecilTweaks",
+  "version": "0.2.1",
+  "author": "Speecil",
+  "authorIcon": "https://avatars.githubusercontent.com/u/90689870?v=4",
+  "modloader": "QuestLoader",
+  "download": "https://github.com/speecil/SpeecilTweaks-Quest/releases/download/v0.2.1/SpeecilTweaks.qmod",
+  "dependencies": [
+    {
+      "id": "bs-utils",
+      "version": "^0.7.2"
+    },
+    {
+      "id": "bsml",
+      "version": "^0.2.10"
+    },
+    {
+      "id": "codegen",
+      "version": "^0.32.0"
+    },
+    {
+      "id": "custom-types",
+      "version": "^0.15.22"
+    },
+    {
+      "id": "questui",
+      "version": "^0.17.10"
+    }
+  ],
+  "source": "https://github.com/speecil/SpeecilTweaks-Quest/",
+  "cover": "https://raw.githubusercontent.com/speecil/SpeecilTweaks-Quest/master/cover.png",
+  "funding": [],
+  "website": null
+}

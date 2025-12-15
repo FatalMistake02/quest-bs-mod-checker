@@ -1,0 +1,24 @@
+{
+  "name": "ImageCoverExpander",
+  "description": "Expands the Cover Image to the full right side of the song select menu!",
+  "id": "ImageCoverExpander",
+  "version": "0.2.1",
+  "author": "Millzy and Raine",
+  "authorIcon": "https://avatars.githubusercontent.com/u/64136899?v=4",
+  "modloader": "QuestLoader",
+  "download": "https://github.com/raineaeternal/ImageCoverExpander-Quest/releases/download/0.2.2/ImageCoverExpander.qmod",
+  "dependencies": [
+    {
+      "id": "codegen",
+      "version": "^0.25.0"
+    },
+    {
+      "id": "custom-types",
+      "version": "^0.15.18"
+    }
+  ],
+  "source": "https://github.com/raineaeternal/ImageCoverExpander-Quest/",
+  "cover": null,
+  "funding": [],
+  "website": null
+}

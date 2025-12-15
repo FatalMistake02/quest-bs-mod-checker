@@ -1,0 +1,24 @@
+{
+  "name": "Thicc Mod",
+  "description": "Have you ever wanted to play beat saber, but the bloqs were the size of your mother? Well look no further! Thicc Mod has got you covered!",
+  "id": "thiccMod",
+  "version": "0.3.0",
+  "author": "speecil",
+  "authorIcon": "https://avatars.githubusercontent.com/u/90689870?v=4",
+  "modloader": "QuestLoader",
+  "download": "https://github.com/speecil/Thicc-Mod/releases/download/v0.3.0/Thicc.Mod.qmod",
+  "dependencies": [
+    {
+      "id": "codegen",
+      "version": "^0.25.0"
+    },
+    {
+      "id": "custom-types",
+      "version": "^0.15.18"
+    }
+  ],
+  "source": "https://github.com/speecil/Thicc-Mod",
+  "cover": null,
+  "funding": [],
+  "website": "https://github.com/speecil/Thicc-Mod"
+}

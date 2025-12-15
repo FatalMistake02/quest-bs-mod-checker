@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:index": "ts-node ./scripts/generateIndex.js"
   },
   "devDependencies": {
+    "@types/node": "^25.0.2",
+    "ts-node": "^10.9.2",
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
   },

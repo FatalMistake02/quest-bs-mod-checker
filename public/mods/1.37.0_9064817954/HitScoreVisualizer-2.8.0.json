@@ -1,0 +1,28 @@
+{
+  "name": "HitScoreVisualizer",
+  "description": "Changes the scores that pop up when you hit notes",
+  "id": "HitScoreVisualizer",
+  "version": "2.8.0",
+  "author": "Christoffyw, Metalit",
+  "authorIcon": "https://avatars.githubusercontent.com/u/55860414?v=4",
+  "modloader": "Scotland2",
+  "download": "https://github.com/christopherweinhardt/HitScoreVisualizer/releases/download/v2.8.0/HitScoreVisualizer.qmod",
+  "dependencies": [
+    {
+      "id": "bsml",
+      "version": "^0.4.29"
+    },
+    {
+      "id": "custom-types",
+      "version": "^0.17.7"
+    },
+    {
+      "id": "paper",
+      "version": "^3.6.3"
+    }
+  ],
+  "source": "https://github.com/christopherweinhardt/HitScoreVisualizer/",
+  "cover": "https://raw.githubusercontent.com/christopherweinhardt/HitScoreVisualizer/master/Cover.jpg",
+  "funding": [],
+  "website": "https://github.com/christopherweinhardt/HitScoreVisualizer/"
+}
