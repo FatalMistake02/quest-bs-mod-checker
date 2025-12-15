@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quest BS Mod Checker</title>
+<title>Quest Beat Saber Mod Checker</title>
 
 <style>
+/* Global reset and dark theme setup */
 * {margin:0; padding:0; box-sizing:border-box;}
 
 body {
@@ -14,33 +15,83 @@ body {
   color: #e0e0e0;
 }
 
+/* Page Header - Sticky navigation bar */
 header {
-  padding: 2rem;
+  padding: 1.5rem 2rem; 
   text-align: center;
   background: #141414;
   position: sticky;
   top: 0;
   z-index: 100;
+
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
 }
 
 h1 {
+  /* Title styling with gradient text effect */
   font-size: 2.5rem;
   background: linear-gradient(135deg,#667eea,#764ba2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  flex-shrink: 0; 
 }
 
+/* Links/buttons in the header */
+.header-links {
+  display: flex;
+  gap: 1rem; 
+  flex-shrink: 0;
+}
+
+.header-btn {
+  /* Common styles for header buttons */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  background: #24292e; 
+  border-radius: 8px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.2s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.header-btn:hover {
+  background: #33383d;
+}
+
+.header-btn svg {
+  color: white; 
+}
+
+/* Main content area */
 main {
   max-width: 1400px;
   margin: auto;
   padding: 2rem 1rem;
 }
 
-.search-container {
-  max-width: 600px;
+/* Search and Action Buttons container */
+.top-controls {
+  display: flex;
+  gap: 1rem;
+  max-width: 900px;
   margin: 0 auto 2rem;
+  align-items: stretch;
+  flex-wrap: wrap;
 }
 
+.search-container {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Style for the search input field */
 input {
   width: 100%;
   padding: 1rem;
@@ -48,14 +99,58 @@ input {
   background: #1e1e1e;
   border: 2px solid rgba(102,126,234,.3);
   color: white;
+  height: 100%; 
 }
 
+/* Common style for main action buttons */
+.action-btn {
+  padding: 0 1.5rem;
+  border-radius: 12px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.2s, opacity 0.2s;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+
+/* Active state for button click visual feedback */
+.action-btn:active {
+  transform: scale(0.96);
+}
+
+/* Styling for Deselect All button */
+#deselectBtn, #versionCheckBtn {
+  background: #2a2a2a;
+  border: 1px solid #444;
+}
+
+#deselectBtn:hover, #versionCheckBtn:hover {
+  background: #333;
+  border-color: #666;
+}
+
+/* Styling for Share URL button with gradient */
+#shareBtn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+#shareBtn:hover {
+  opacity: 0.9;
+}
+
+/* Container for all mod cards (Grid layout) */
 .mods {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
   gap: 1.5rem;
 }
 
+/* Individual Mod Card */
 .mod-card {
   position: relative;
   background: rgba(30,30,30,1);
@@ -66,17 +161,18 @@ input {
   transition: transform .3s ease;
 }
 
-/* Only the border gradient */
+/* Gradient animated border effect */
 .mod-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  padding: 2px; /* border thickness */
+  padding: 2px;
   border-radius: 16px;
   background: linear-gradient(135deg,#667eea,#764ba2,#f093fb,#4facfe,#667eea);
   background-size: 400% 400%;
   animation: gradientFlow 8s linear infinite;
   z-index: -1;
+  /* Mask to create the border effect */
   -webkit-mask: 
     linear-gradient(#fff 0 0) content-box, 
     linear-gradient(#fff 0 0);
@@ -84,26 +180,30 @@ input {
   mask-composite: exclude;
 }
 
-/* Randomize animation for each card */
+/* Apply staggered animation delay based on data attribute */
 .mod-card[data-delay]::before {
   animation-delay: attr(data-delay s);
 }
 
+/* Keyframes for the background gradient animation */
 @keyframes gradientFlow {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
   100% {background-position: 0% 50%;}
 }
 
+/* Hover effect for mod card */
 .mod-card:hover {
   transform: scale(1.02);
 }
 
+/* Mod card when expanded to show full description/versions */
 .mod-card.expanded {
   z-index: 50;
   overflow: visible;
 }
 
+/* Mod title and latest version badge */
 .mod-title {
   font-size: 1.3rem;
   margin-bottom: .5rem;
@@ -117,22 +217,24 @@ input {
   margin-left: .4rem;
 }
 
+/* Short description preview - truncated */
 .desc-preview {
   color: #999;
   font-size: .88rem;
   line-height: 1.5;
-  max-height: 3.2em;
-  min-height: 2.2em; /* added */
+  max-height: 3.2em; /* Show max 2 lines */
+  min-height: 2.2em;
   overflow: hidden;
 }
 
+/* Available versions preview - truncated */
 .versions-preview {
   max-height: 2.2em;
   overflow: hidden;
   margin-top: .4rem;
 }
 
-
+/* Individual version tag */
 .version {
   display: inline-block;
   background: rgba(118,75,162,.25);
@@ -142,6 +244,7 @@ input {
   margin:.2rem .25rem 0 0;
 }
 
+/* Button to show expanded content */
 .show-more {
   font-size: .8rem;
   color: #667eea;
@@ -150,6 +253,7 @@ input {
   display: inline-block;
 }
 
+/* Author and Loader info block */
 .base-info {
   font-size: .85rem;
   margin-top: .6rem;
@@ -157,7 +261,8 @@ input {
   padding-top: .6rem;
 }
 
-.download {
+/* Mod selection button */
+.select-btn {
   display: block;
   margin-top: .7rem;
   padding: .55rem;
@@ -165,32 +270,39 @@ input {
   border-radius: 8px;
   background: linear-gradient(135deg,#667eea,#764ba2);
   color: white;
-  text-decoration: none;
   font-weight: 600;
   font-size: .9rem;
+  cursor: pointer;
+  border: none;
 }
 
+/* Selected state for the select button */
+.select-btn.selected {
+  background: linear-gradient(135deg,#f093fb,#9e61db);
+}
+
+/* Base style for expanded panels (description and versions) */
 .expanded-panel {
   position: absolute;
   left: 0;
   right: 0;
-  top: 3.4rem;
+  top: 3.4rem; /* Aligns with the end of the title area */
   background: rgba(30,30,30,1);
   border-radius: 0 0 16px 16px;
   padding: 1.2rem 1.5rem 1.5rem;
   opacity: 0;
   transform: translateY(-10px);
-  pointer-events: none;
+  pointer-events: none; /* Prevents interaction when hidden */
   transition: .25s;
   z-index: 0;
 }
 
+/* Gradient border for the expanded panels */
 .expanded-panel::before {
   content: "";
   position: absolute;
   inset: 0;
   padding: 2px;
-  /* Apply border-radius only to the bottom corners */
   border-radius: 0 0 16px 16px; 
   background: linear-gradient(135deg,#667eea,#9e61db,#d593fb,#4facfe,#667eea);
   background-size: 400% 400%;
@@ -201,25 +313,26 @@ input {
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-
-  /* Add this line to hide the top part of the pseudo-element's background */
-  clip-path: inset(2px 0 0 0); 
+  clip-path: inset(2px 0 0 0); /* Hide top 2px to align perfectly with card body */
 }
 
-
+/* State to show description panel */
 .mod-card.show-desc .expanded-desc-panel,
+/* State to show versions panel */
 .mod-card.show-versions .expanded-versions-panel {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 
+/* Full description text in expanded panel */
 .expanded-desc {
   color: #aaa;
   font-size: .9rem;
   line-height: 1.6;
 }
 
+/* Info block within expanded panel */
 .expanded-info {
   margin-top: 1rem;
   padding-top: 1rem;
@@ -227,151 +340,292 @@ input {
   font-size: .85rem;
 }
 
+/* Positioning for versions panel (adjusts slightly lower) */
 .expanded-versions-panel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 130px;
+  top: 100px; /* Offset to clear main card content */
 }
 </style>
 </head>
 <body>
 <header>
-  <h1>Quest BS Mod Checker</h1>
+  <h1>Quest Beat Saber Mod Checker</h1>
+  
+  <div class="header-links">
+    <a id="projectRepoLink" href="https://github.com/FatalMistake02/quest-bs-mod-checker" target="_blank" rel="noopener noreferrer">
+      <button class="action-btn header-btn project-repo-btn">
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2.0-.21.15-.46.55-.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        Project Repo
+      </button>
+    </a>
+    
+    <a id="dataSourceLink" href="https://github.com/QuestPackageManager/bsqmods" target="_blank" rel="noopener noreferrer">
+      <button class="action-btn header-btn data-source-btn">
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2.0-.21.15-.46.55-.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        Mod data from BSQMods
+      </button>
+    </a>
+  </div>
 </header>
 
 <main>
-  <div class="search-container">
-    <input id="searchInput" placeholder="Search mods...">
+  <div class="top-controls">
+    <div class="search-container">
+      <input id="searchInput" placeholder="Search mods...">
+    </div>
+    <button id="deselectBtn" class="action-btn">Deselect All</button>
+    <button id="versionCheckBtn" class="action-btn">Version Check</button>
+    <button id="shareBtn" class="action-btn">Copy Share URL</button>
   </div>
   <div class="mods" id="mods"></div>
 </main>
 
 <script>
+// Main function to load mod data and initialize the application
 async function loadMods() {
-  const res = await fetch("mods/index.json");
-  const data = await res.json();
+  // Fetch the main index file containing mod data grouped by Beat Saber version
+  const res = await fetch("mods/index.json");
+  const data = await res.json();
 
-  const map = new Map();
+  // Map to consolidate mod data, keeping the properties of the highest compatible version
+  const map = new Map();
 
-  Object.entries(data).forEach(([ver, mods]) => {
-    mods.forEach(m => {
-      if (!map.has(m.id)) {
-        // First time seeing this mod
-        map.set(m.id, { ...m, version: ver, versions: [ver] });
-      } else {
-        const existing = map.get(m.id);
-        existing.versions.push(ver);
+  // Iterate through the fetched data
+  Object.entries(data).forEach(([bsVer, mods]) => { // Use bsVer for Beat Saber Version
+    mods.forEach(m => {
+      if (!map.has(m.id)) {
+        // First time seeing this mod ID
+        map.set(m.id, { 
+            ...m, 
+            beatSaberVersion: bsVer, // Store the Beat Saber version separately
+            versions: [bsVer] 
+        });
+      } else {
+        // Mod ID already exists, consolidate versions and find the highest version's details
+        const existing = map.get(m.id);
+        existing.versions.push(bsVer);
+        
+        // Helper function to convert version string (e.g., "1.29.1") to an array of numbers ([1, 29, 1])
+        function versionToArray(v) { return v.split('.').map(Number); }
+        const newVerArr = versionToArray(bsVer);
+        const existingVerArr = versionToArray(existing.beatSaberVersion); // Compare against beatSaberVersion
+        
+        // Compare version arrays element by element (e.g., major.minor.patch)
+        for (let i = 0; i < Math.max(newVerArr.length, existingVerArr.length); i++) {
+          const n = newVerArr[i] || 0;
+          const e = existingVerArr[i] || 0;
+          if (n > e) {
+            // New Beat Saber version is higher, update mod properties to the latest one
+            Object.assign(existing, m); 
+            existing.beatSaberVersion = bsVer; // Update the representative Beat Saber version string
+            break;
+          } else if (n < e) break; // Existing Beat Saber version is higher, stop comparison
+        }
+      }
+    });
+  });
 
-        // Compare versions to see if this one is newer
-        function versionToArray(v) { return v.split('.').map(Number); }
-        const newVerArr = versionToArray(ver);
-        const existingVerArr = versionToArray(existing.version);
+  // Convert the Map values back to an array for rendering and searching
+  let allMods = [...map.values()];
+  const container = document.getElementById("mods");
 
-        for (let i = 0; i < Math.max(newVerArr.length, existingVerArr.length); i++) {
-          const n = newVerArr[i] || 0;
-          const e = existingVerArr[i] || 0;
-          if (n > e) {
-            // New version is higher, replace metadata
-            existing.name = m.name;
-            existing.description = m.description;
-            existing.version = ver;
-            existing.author = m.author;
-            existing.modloader = m.modloader;
-            existing.download = m.download;
-            break;
-          } else if (n < e) {
-            break; // Existing is newer, do nothing
-          }
-        }
-      }
-    });
-  });
+  // Load selected mods from local storage
+  let selectedMods = JSON.parse(localStorage.getItem("selectedMods") || "{}");
 
-  const mods = [...map.values()];
-  const container = document.getElementById("mods");
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  // Check for shared URL parameters (e.g., ?mods=id1,id2)
+  if (urlParams.has("mods")) {
+    const ids = urlParams.get("mods").split(",");
+    
+    // 1. Overwrite current selection with shared mods
+    selectedMods = {};
+    ids.forEach(id => selectedMods[id] = true);
+    
+    // 2. Save the shared selection to localStorage
+    localStorage.setItem("selectedMods", JSON.stringify(selectedMods));
+    
+    // 3. Clean up the URL by removing the 'mods' parameter
+    urlParams.delete("mods");
+    
+    // Construct the new URL without the 'mods' parameter
+    const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+    
+    // Use history.replaceState to change the URL without reloading the page
+    history.replaceState(null, "", newUrl);
+  }
 
+  // Function to update the URL hash (not currently used/needed due to cleanup above)
+  function updateURL() {
+    const selectedIds = Object.keys(selectedMods).filter(k => selectedMods[k]);
+    const params = new URLSearchParams(window.location.search);
+    if (selectedIds.length) params.set("mods", selectedIds.join(","));
+    else params.delete("mods");
+    history.replaceState(null, "", "?" + params.toString());
+  }
+
+  // Function to save the current selection state to localStorage
+  function saveSelection() {
+    localStorage.setItem("selectedMods", JSON.stringify(selectedMods));
+  }
+
+  // --- Rendering ---
+
+  // Function to render a list of mod cards to the container
   function render(list) {
     container.innerHTML = "";
     list.forEach(mod => {
       const card = document.createElement("div");
       card.className = "mod-card";
-
-      // Random animation delay for async effect
+      // Assign a random animation delay for the card border effect
       card.dataset.delay = (Math.random() * 5).toFixed(2);
 
+      // Sanitize description and create versions HTML
       const desc = mod.description?.replace(/\n/g, "<br>") ?? "No description available";
       const versionsHTML = mod.versions
-        .sort((a,b) => a.localeCompare(b, undefined, { numeric: true })) // sort versions
-        .map(v => `<span class="version">${v}</span>`)
-        .join("");
+        // Sort versions numerically for display
+        .sort((a,b) => a.localeCompare(b, undefined, { numeric: true }))
+        .map(v => `<span class="version">${v}</span>`).join("");
 
+      const isSelected = selectedMods[mod.id] ? "selected" : "";
+
+      // Reusable inner HTML for static card information and select button
+      const infoBlock = `
+        <div><strong>Author:</strong> ${mod.author ?? "Unknown"}</div>
+        <div><strong>Loader:</strong> ${mod.modloader ?? "Unknown"}</div>
+        <button class="select-btn ${isSelected}" data-id="${mod.id}">${isSelected ? "Selected" : "Select"}</button>
+      `;
+
+      // Build the card HTML structure
       card.innerHTML = `
         <div class="mod-title">${mod.name}<small>v${mod.version}</small></div>
         <div class="desc-preview">${desc}</div>
         <div class="show-more desc-btn">Show more description</div>
         <div class="versions-preview">${versionsHTML}</div>
         <div class="show-more versions-btn">Show more versions</div>
-        <div class="base-info">
-          <div><strong>Author:</strong> ${mod.author ?? "Unknown"}</div>
-          <div><strong>Loader:</strong> ${mod.modloader ?? "Unknown"}</div>
-          ${mod.download ? `<a class="download" href="${mod.download}" target="_blank">Download</a>` : ""}
-        </div>
+        
+        <div class="base-info">${infoBlock}</div>
+        
         <div class="expanded-panel expanded-desc-panel">
           <div class="expanded-desc">${desc}</div>
-          <div class="expanded-info">
-            <div><strong>Author:</strong> ${mod.author ?? "Unknown"}</div>
-            <div><strong>Loader:</strong> ${mod.modloader ?? "Unknown"}</div>
-            ${mod.download ? `<a class="download" href="${mod.download}" target="_blank">Download</a>` : ""}
-          </div>
+          <div class="expanded-info">${infoBlock}</div>
         </div>
+        
         <div class="expanded-panel expanded-versions-panel">
           <div>${versionsHTML}</div>
-          <div class="expanded-info">
-            <div><strong>Author:</strong> ${mod.author ?? "Unknown"}</div>
-            <div><strong>Loader:</strong> ${mod.modloader ?? "Unknown"}</div>
-            ${mod.download ? `<a class="download" href="${mod.download}" target="_blank">Download</a>` : ""}
-          </div>
+          <div class="expanded-info">${infoBlock}</div>
         </div>
       `;
 
       container.appendChild(card);
 
+      // --- Expansion Logic ---
       const descBtn = card.querySelector(".desc-btn");
       const verBtn = card.querySelector(".versions-btn");
       const descPreview = card.querySelector(".desc-preview");
       const versionsPreview = card.querySelector(".versions-preview");
-
+      
+      // Hide "Show more" buttons if content is not truncated
       if (descPreview.scrollHeight <= descPreview.clientHeight) descBtn.style.display = "none";
       if (versionsPreview.scrollHeight <= versionsPreview.clientHeight) verBtn.style.display = "none";
+      
+      // Mouseenter handlers to show the expanded panels
+      descBtn.onmouseenter = () => { card.classList.add("expanded", "show-desc"); card.classList.remove("show-versions"); };
+      verBtn.onmouseenter = () => { card.classList.add("expanded", "show-versions"); card.classList.remove("show-desc"); };
+      // Mouseleave handler to hide panels and reset card
+      card.onmouseleave = () => { card.classList.remove("expanded", "show-desc", "show-versions"); };
 
-      descBtn.onmouseenter = () => {
-        card.classList.add("expanded", "show-desc");
-        card.classList.remove("show-versions");
-      };
-      verBtn.onmouseenter = () => {
-        card.classList.add("expanded", "show-versions");
-        card.classList.remove("show-desc");
-      };
-      card.onmouseleave = () => {
-        card.classList.remove("expanded", "show-desc", "show-versions");
-      };
+      // --- Select Logic ---
+      // Attach click handler to all select buttons (in base and expanded panels)
+      card.querySelectorAll(".select-btn").forEach(btn => {
+        btn.onclick = () => {
+          // Toggle selection state
+          selectedMods[mod.id] = !selectedMods[mod.id];
+          saveSelection();
+          
+          // Update UI for this mod immediately across all its select buttons
+          const isNowSelected = selectedMods[mod.id];
+          card.querySelectorAll(`.select-btn`).forEach(b => {
+            b.classList.toggle("selected", isNowSelected);
+            b.textContent = isNowSelected ? "Selected" : "Select";
+          });
+        };
+      });
     });
   }
 
-  render(mods);
+  // Initial render of all mods
+  render(allMods);
 
+  // --- Event Listeners ---
+
+  // Search functionality
   document.getElementById("searchInput").addEventListener("input", e => {
     const t = e.target.value.toLowerCase();
-    render(mods.filter(m =>
+    // Filter mods by name or author matching the search term
+    render(allMods.filter(m =>
       m.name.toLowerCase().includes(t) ||
-      m.author?.toLowerCase().includes(t)
+      (m.author && m.author.toLowerCase().includes(t))
     ));
+  });
+
+  // Deselect All button functionality
+  document.getElementById("deselectBtn").addEventListener("click", () => {
+    selectedMods = {};
+    saveSelection();
+    
+    // Re-render the current list to update all button states visually
+    const currentSearch = document.getElementById("searchInput").value.toLowerCase();
+    const currentList = allMods.filter(m => 
+      m.name.toLowerCase().includes(currentSearch) || 
+      (m.author && m.author.toLowerCase().includes(currentSearch))
+    );
+    render(currentList);
+  });
+
+  // Version Check button functionality (navigates to a separate page)
+  document.getElementById("versionCheckBtn").addEventListener("click", () => {
+    window.location.href = "version_check.html"; 
+  });
+
+  // Copy Share URL button functionality
+  document.getElementById("shareBtn").addEventListener("click", () => {
+    // Generate URL with selected mod IDs
+    const selectedIds = Object.keys(selectedMods).filter(k => selectedMods[k]);
+    const url = new URL(window.location.href);
+    
+    if (selectedIds.length > 0) {
+      url.searchParams.set("mods", selectedIds.join(","));
+    } else {
+      url.searchParams.delete("mods"); // Remove parameter if no mods are selected
+    }
+
+    // Copy the generated URL to the clipboard
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      const btn = document.getElementById("shareBtn");
+      const originalText = btn.innerText;
+      
+      // Temporary visual feedback
+      btn.innerText = "Copied!";
+      btn.style.background = "linear-gradient(135deg, #4facfe, #00f2fe)"; 
+      
+      // Revert button text and style after a delay
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.style.background = ""; 
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+      alert("Failed to copy URL to clipboard.");
+    });
   });
 }
 
+// Start the application by loading mods
 loadMods();
-
 </script>
 </body>
 </html>
