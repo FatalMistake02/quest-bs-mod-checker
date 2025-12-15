@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 .env
-scripts/cache/bsqmods.json
+scripts/cache/*
