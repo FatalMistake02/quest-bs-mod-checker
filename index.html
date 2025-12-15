@@ -1,41 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Quest BS Mod Checker</title>
-    <link rel="stylesheet" href="/src/styles.css" />
-  </head>
-  <body>
-  <header class="header">
-    <h1>Quest Beat Saber Mod Checker</h1>
-    <p>Browse Quest-compatible Beat Saber mods by game version</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quest BS Mod Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .mods {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .mod-card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .mod-card h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+    }
+    .mod-card p {
+      margin: 0.3rem 0;
+      font-size: 0.9rem;
+    }
+    .mod-card a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      background: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quest BS Mod Checker</h1>
   </header>
-
-  <main class="container">
-    <section class="controls">
-      <label>
-        Beat Saber Version
-        <select id="versionSelect">
-          <option value="">Select a version</option>
-        </select>
-      </label>
-
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search mods…"
-      />
-    </section>
-
-    <section class="content">
-      <div id="modGrid" class="mod-grid"></div>
-      <div id="modDetails" class="mod-details empty">
-        <p>Select a mod to see details</p>
-      </div>
-    </section>
+  <main>
+    <label for="versionSelect">Select Beat Saber Version:</label>
+    <select id="versionSelect"></select>
+    <div class="mods" id="modsContainer"></div>
   </main>
 
-  <script type="module" src="/src/main.ts"></script>
-</body>
+  <script>
+    async function loadMods() {
+      const res = await fetch('mods/index.json');
+      const data = await res.json();
 
+      const versionSelect = document.getElementById('versionSelect');
+      const modsContainer = document.getElementById('modsContainer');
+
+      // Fill version dropdown
+      const versions = Object.keys(data).sort();
+      versions.forEach(v => {
+        const option = document.createElement('option');
+        option.value = v;
+        option.textContent = v;
+        versionSelect.appendChild(option);
+      });
+
+      // Show mods for selected version
+      function displayMods(version) {
+        modsContainer.innerHTML = '';
+        const mods = data[version] || [];
+        mods.forEach(mod => {
+          const card = document.createElement('div');
+          card.className = 'mod-card';
+          card.innerHTML = `
+            <h3>${mod.name} <small>${mod.version}</small></h3>
+            <p>${mod.description ? mod.description.replace(/\\r?\\n/g, '<br>') : ''}</p>
+            <p><strong>Author:</strong> ${mod.author || 'Unknown'}</p>
+            <p><strong>Loader:</strong> ${mod.modloader || 'Unknown'}</p>
+            ${mod.download ? `<a href="${mod.download}" target="_blank">Download</a>` : ''}
+          `;
+          modsContainer.appendChild(card);
+        });
+      }
+
+      // Initial display
+      displayMods(versions[0]);
+
+      // Change event
+      versionSelect.addEventListener('change', e => {
+        displayMods(e.target.value);
+      });
+    }
+
+    loadMods().catch(err => console.error(err));
+  </script>
+</body>
 </html>
