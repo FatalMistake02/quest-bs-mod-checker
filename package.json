@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "generate:index": "node ./scripts/generateIndex.js",
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "generate:index": "ts-node ./scripts/generateIndex.js"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@types/node": "^25.0.2",
@@ -15,5 +15,9 @@
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
   },
-  "homepage": "https://fatalmistake02.github.io/quest-bs-mod-checker"
+  "homepage": "https://fatalmistake02.github.io/quest-bs-mod-checker",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "node-fetch": "^3.3.2"
+  }
 }
