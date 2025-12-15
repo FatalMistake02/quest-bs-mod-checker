@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quest Beat Saber Mod Compatibility Checker</title>
+
+<style>
+/* Global reset and dark theme setup */
+* {margin:0; padding:0; box-sizing:border-box;}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+/* Page Header - Sticky navigation bar */
+header {
+  padding: 2rem;
+  text-align: center;
+  background: #141414;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* Title styling with gradient text effect */
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+/* Main content area */
+main {
+  max-width: 1400px;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+
+/* --- Controls Section --- */
+.controls-container {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+}
+
+/* Input Field Styling */
+input {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #1e1e1e;
+  border: 2px solid rgba(102,126,234,0.3);
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #764ba2;
+}
+
+/* --- Custom Dropdown Styling --- */
+.custom-select-wrapper {
+  position: relative;
+  user-select: none;
+}
+
+/* Dropdown trigger button */
+.custom-select-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #1e1e1e;
+  border: 2px solid rgba(102,126,234,0.3);
+  color: #aaa;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.custom-select-trigger:hover {
+  border-color: #667eea;
+}
+
+/* Active state for trigger (when dropdown is open) */
+.custom-select-trigger.active {
+  border-color: #764ba2;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.custom-select-trigger span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Arrow indicator icon */
+.arrow {
+  border: solid #667eea;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(45deg);
+  margin-left: 10px;
+  transition: transform 0.3s;
+}
+
+/* Arrow rotation when dropdown is open */
+.custom-select-trigger.active .arrow {
+  transform: rotate(-135deg);
+}
+
+/* Dropdown options container */
+.custom-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #1e1e1e;
+  border: 2px solid rgba(102,126,234,0.3);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  z-index: 50;
+  max-height: 300px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+/* Dropdown open state */
+.custom-select-wrapper.open .custom-options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Individual dropdown option */
+.custom-option {
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-option:hover {
+  background: rgba(102,126,234,0.1);
+}
+
+/* Selected option style */
+.custom-option.selected {
+  background: linear-gradient(90deg, rgba(102,126,234,0.2), transparent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Disabled option style (when max selection reached) */
+.custom-option.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Compatibility Table Styling --- */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 16px;
+  position: relative;
+  background: rgba(30,30,30,1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Animated Border Gradient for Table */
+.table-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #4facfe, #667eea);
+  background-size: 400% 400%;
+  animation: gradientFlow 8s linear infinite;
+  z-index: -1;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Keyframes for the gradient border animation */
+@keyframes gradientFlow {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+.compat-grid {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Ensure table is readable on small screens */
+}
+
+.compat-grid th, .compat-grid td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Styling for the first column (Mod Details) */
+.compat-grid th:first-child, .compat-grid td:first-child {
+  text-align: left;
+  padding-left: 2rem;
+  width: 40%;
+}
+
+/* Table header styling */
+.compat-grid thead th {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* Hover effect for table rows */
+.compat-grid tbody tr {
+  transition: background 0.2s;
+}
+
+.compat-grid tbody tr:hover {
+  background: rgba(102,126,234,0.05);
+}
+
+.mod-name-cell {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.mod-author {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 4px;
+  font-weight: normal;
+}
+
+/* Compatibility Indicators */
+.status-cell {
+  font-size: 1.2rem;
+}
+
+.compatible {
+  color: #4ade80; /* Green checkmark */
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
+}
+
+.incompatible {
+  color: #ef4444; /* Red x-mark */
+  opacity: 0.3; /* Subtle incompatibility indicator */
+}
+
+/* Custom Scrollbar styling */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #1a1a1a; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #667eea; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .controls-container { flex-direction: column; gap: 1rem; }
+  h1 { font-size: 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Quest Beat Saber Mod Compatibility Checker</h1>
+</header>
+
+<main>
+  <div class="controls-container">
+    <div class="control-group">
+      <input id="searchInput" placeholder="Search within your selected mods..." autocomplete="off">
+    </div>
+
+    <div class="control-group">
+      <div class="custom-select-wrapper" id="versionDropdown">
+        <div class="custom-select-trigger">
+          <span id="triggerText">Select Versions (Max 5)</span>
+          <div class="arrow"></div>
+        </div>
+        <div class="custom-options" id="optionsList">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="compat-grid" id="compatGrid">
+      <thead id="compatHead">
+        </thead>
+      <tbody id="compatBody">
+        </tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+// Main initialization function for the compatibility checker page
+async function initApp() {
+  // 1. Fetch Mod Data
+  const res = await fetch("mods/index.json");
+  const data = await res.json();
+
+  // 2. Identify Selected Mods (Retrieves mod selection from localStorage/URL)
+  let selectedIDs = {};
+  
+  // Try to get stored selection from the main page
+  try {
+    const lsParams = JSON.parse(localStorage.getItem("selectedMods") || "{}");
+    selectedIDs = { ...lsParams };
+  } catch(e) { console.error("LocalStorage Error", e); }
+
+  // Check URL Params for shared selection (overrides localStorage)
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has("mods")) {
+    const ids = urlParams.get("mods").split(",");
+    selectedIDs = {};
+    ids.forEach(id => selectedIDs[id] = true);
+  }
+
+  // 3. Process Data: Consolidate versions and list all unique versions
+  const map = new Map();
+  const allVersionsSet = new Set();
+
+  Object.entries(data).forEach(([ver, mods]) => {
+    allVersionsSet.add(ver); // Collect all available Beat Saber versions
+    mods.forEach(m => {
+      // Build a global map of mods and their supported versions
+      if (!map.has(m.id)) {
+        map.set(m.id, { ...m, supportedVersions: [ver] });
+      } else {
+        map.get(m.id).supportedVersions.push(ver);
+      }
+    });
+  });
+
+  // 4. Filter Mods & Sort Versions
+  // Only keep mods that the user has selected
+  const myMods = [...map.values()]
+    .filter(m => selectedIDs[m.id])
+    .sort((a,b) => a.name.localeCompare(b.name));
+
+  // Get and sort all unique versions (highest first)
+  const allVersions = [...allVersionsSet].sort((a,b) => b.localeCompare(a, undefined, { numeric: true }));
+
+  // Application State
+  let selectedVersions = [];
+  const MAX_VERSIONS = 5;
+
+  // --- UI Logic: Custom Dropdown ---
+  const dropdown = document.getElementById("versionDropdown");
+  const trigger = dropdown.querySelector(".custom-select-trigger");
+  const triggerText = document.getElementById("triggerText");
+  const optionsList = document.getElementById("optionsList");
+
+  // Populate Dropdown Options
+  allVersions.forEach(ver => {
+    const opt = document.createElement("div");
+    opt.className = "custom-option";
+    opt.dataset.value = ver;
+    opt.innerHTML = `<span>${ver}</span><span class="check"></span>`;
+    
+    // Attach click handler to toggle selection
+    opt.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleVersion(ver, opt);
+    });
+    
+    optionsList.appendChild(opt);
+  });
+
+  // Toggle Dropdown Visibility
+  trigger.addEventListener("click", () => {
+    dropdown.classList.toggle("open");
+    trigger.classList.toggle("active");
+  });
+
+  // Close dropdown when clicking outside
+  window.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove("open");
+      trigger.classList.remove("active");
+    }
+  });
+
+  // Handles adding/removing a version from the selectedVersions array
+  function toggleVersion(ver, element) {
+    const index = selectedVersions.indexOf(ver);
+    
+    if (index > -1) {
+      // Remove version
+      selectedVersions.splice(index, 1);
+      element.classList.remove("selected");
+      element.querySelector(".check").textContent = "";
+    } else {
+      // Add version (if limit not reached)
+      if (selectedVersions.length >= MAX_VERSIONS) {
+        alert(`You can only select up to ${MAX_VERSIONS} versions.`);
+        return;
+      }
+      selectedVersions.push(ver);
+      // Keep selected versions sorted (highest first)
+      selectedVersions.sort((a,b) => b.localeCompare(a, undefined, { numeric: true }));
+      element.classList.add("selected");
+      element.querySelector(".check").textContent = "✔";
+    }
+
+    updateTriggerText();
+    updateOptionsState();
+    renderGrid(); // Re-render table upon selection change
+  }
+
+  // Updates the text shown in the dropdown trigger
+  function updateTriggerText() {
+    if (selectedVersions.length === 0) {
+      triggerText.textContent = "Select Versions (Max 5)";
+      triggerText.style.color = "#aaa";
+    } else {
+      triggerText.textContent = selectedVersions.join(", ");
+      triggerText.style.color = "#fff";
+    }
+  }
+
+  // Disables/enables options based on MAX_VERSIONS limit
+  function updateOptionsState() {
+    const options = optionsList.querySelectorAll(".custom-option");
+    const isFull = selectedVersions.length >= MAX_VERSIONS;
+
+    options.forEach(opt => {
+      const isSelected = opt.classList.contains("selected");
+      if (!isSelected && isFull) {
+        opt.classList.add("disabled");
+      } else {
+        opt.classList.remove("disabled");
+      }
+    });
+  }
+
+  // --- UI Logic: Grid Rendering ---
+  const searchInput = document.getElementById("searchInput");
+
+  // Renders the compatibility table based on current state (selections/search)
+  function renderGrid() {
+    const head = document.getElementById("compatHead");
+    const body = document.getElementById("compatBody");
+    const searchTerm = searchInput.value.toLowerCase();
+
+    // Check if the user has any mods selected at all
+    if (myMods.length === 0) {
+      head.innerHTML = "<tr><th>Status</th></tr>";
+      body.innerHTML = `<tr><td style="text-align:center; padding: 2rem; color: #888;">
+        No mods selected.<br>Please select mods from the main page first.
+      </td></tr>`;
+      return;
+    }
+
+    // 1. Render Header (Prompt for version selection)
+    if (selectedVersions.length === 0) {
+      head.innerHTML = "<tr><th>Mod Name</th><th>Status</th></tr>";
+      body.innerHTML = `<tr><td colspan="2" style="text-align:center; padding: 2rem; color: #888;">Please select at least one version from the dropdown above to check compatibility.</td></tr>`;
+      return;
+    }
+
+    // Construct table header with selected versions
+    head.innerHTML = "<tr><th>Mod Details</th>" + 
+      selectedVersions.map(v => `<th>${v}</th>`).join("") + 
+      "</tr>";
+
+    // 2. Filter Mods based on search input
+    const filteredMods = myMods.filter(m => 
+      m.name.toLowerCase().includes(searchTerm) || 
+      (m.author && m.author.toLowerCase().includes(searchTerm))
+    );
+
+    // 3. Render Body
+    body.innerHTML = "";
+    
+    if (filteredMods.length === 0) {
+      body.innerHTML = `<tr><td colspan="${selectedVersions.length + 1}" style="text-align:center; padding: 2rem; color: #888;">No mods found matching "${searchInput.value}".</td></tr>`;
+      return;
+    }
+
+    // Create a row for each filtered mod
+    filteredMods.forEach(mod => {
+      const row = document.createElement("tr");
+      
+      const details = `
+        <td>
+          <div class="mod-name-cell">${mod.name}</div>
+          <span class="mod-author">by ${mod.author || "Unknown"}</span>
+        </td>
+      `;
+
+      // Create compatibility cells (✔ or ✖) for each selected version
+      const checks = selectedVersions.map(ver => {
+        const isCompat = mod.supportedVersions.includes(ver);
+        return `<td class="status-cell ${isCompat ? 'compatible' : 'incompatible'}">
+          ${isCompat ? '✔' : '✖'}
+        </td>`;
+      }).join("");
+
+      row.innerHTML = details + checks;
+      body.appendChild(row);
+    });
+  }
+
+  // Attach search listener to trigger re-rendering
+  searchInput.addEventListener("input", renderGrid);
+
+  // Initial Render (will prompt for version selection)
+  renderGrid();
+}
+
+// Start the application
+initApp();
+</script>
+</body>
+</html>
