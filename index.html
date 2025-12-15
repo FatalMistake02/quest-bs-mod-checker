@@ -5,114 +5,521 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quest BS Mod Checker</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background: #f0f0f0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      line-height: 1.6;
     }
     header {
-      background: #222;
-      color: #fff;
-      padding: 1rem;
+      background: rgba(20, 20, 20, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 2rem 1rem;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      letter-spacing: -1px;
+    }
+    .subtitle {
+      color: #888;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
     }
     main {
-      padding: 1rem;
-      max-width: 1200px;
+      padding: 2rem 1rem;
+      max-width: 1400px;
       margin: 0 auto;
     }
-    select {
-      padding: 0.5rem;
+    .search-container {
+      margin-bottom: 2rem;
+      position: relative;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 1rem 1.5rem;
       font-size: 1rem;
-      margin-bottom: 1rem;
+      background: rgba(30, 30, 30, 0.8);
+      border: 2px solid rgba(102, 126, 234, 0.3);
+      border-radius: 12px;
+      color: #e0e0e0;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    input[type="text"]:focus {
+      border-color: rgba(102, 126, 234, 0.8);
+      background: rgba(30, 30, 30, 0.95);
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+    input[type="text"]::placeholder {
+      color: #666;
+    }
+    .stats {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #888;
+      font-size: 0.9rem;
     }
     .mods {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     .mod-card {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      background: rgba(30, 30, 30, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .mod-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .mod-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(102, 126, 234, 0.3);
+      box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15);
+    }
+    .mod-card:hover::before {
+      opacity: 1;
     }
     .mod-card h3 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .mod-card h3 small {
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: rgba(102, 126, 234, 0.2);
+      color: #a5b4fc;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid rgba(102, 126, 234, 0.3);
     }
     .mod-card p {
-      margin: 0.3rem 0;
+      margin: 0.8rem 0;
       font-size: 0.9rem;
+      color: #b0b0b0;
+      line-height: 1.5;
+    }
+    .description-wrapper {
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .mod-card .description {
+      color: #999;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .show-more-btn {
+      color: #667eea;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-top: 0.3rem;
+      display: inline-block;
+      transition: all 0.2s ease;
+      user-select: none;
+      font-weight: 500;
+    }
+    .show-more-btn:hover {
+      color: #a5b4fc;
+      transform: translateX(2px);
+    }
+    .show-more-btn::after {
+      content: ' ↓';
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    .show-more-btn.expanded::after {
+      transform: rotate(180deg);
+    }
+    .description-popup {
+      position: absolute;
+      left: -1.5rem;
+      right: -1.5rem;
+      top: 100%;
+      background: rgba(20, 20, 20, 0.98);
+      backdrop-filter: blur(20px);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(102, 126, 234, 0.4);
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.8);
+      z-index: 60;
+      color: #b0b0b0;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-top: 0.5rem;
+      animation: popupSlideIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes popupSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .mod-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .info-label {
+      font-weight: 600;
+      color: #888;
+      min-width: 80px;
+    }
+    .info-value {
+      color: #b0b0b0;
+      flex: 1;
+    }
+    .versions {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.4rem;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .versions:hover {
+      color: #a5b4fc;
+    }
+    .versions-collapsed {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .versions-expanded {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      background: rgba(20, 20, 20, 0.98);
+      backdrop-filter: blur(20px);
+      padding: 1rem;
+      border-radius: 0 0 12px 12px;
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-top: none;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      z-index: 50;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: -1px;
+      animation: slideDown 0.2s ease;
+    }
+    .version-tag {
+      background: rgba(118, 75, 162, 0.2);
+      color: #c4b5fd;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(118, 75, 162, 0.3);
     }
     .mod-card a {
       display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.4rem 0.6rem;
-      background: #007bff;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: #fff;
       text-decoration: none;
-      border-radius: 4px;
+      border-radius: 8px;
       font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    .mod-card a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #666;
+      font-size: 1.1rem;
+    }
+    .loading {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #888;
+      font-size: 1.1rem;
+    }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .mods {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Quest BS Mod Checker</h1>
+    <p class="subtitle">Browse and search Quest Beat Saber mods</p>
   </header>
   <main>
-    <label for="versionSelect">Select Beat Saber Version:</label>
-    <select id="versionSelect"></select>
-    <div class="mods" id="modsContainer"></div>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search mods by name or author..." />
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="mods" id="modsContainer">
+      <div class="loading">Loading mods...</div>
+    </div>
   </main>
-
   <script>
     async function loadMods() {
-      const res = await fetch('mods/index.json');
-      const data = await res.json();
-
-      const versionSelect = document.getElementById('versionSelect');
-      const modsContainer = document.getElementById('modsContainer');
-
-      // Fill version dropdown
-      const versions = Object.keys(data).sort();
-      versions.forEach(v => {
-        const option = document.createElement('option');
-        option.value = v;
-        option.textContent = v;
-        versionSelect.appendChild(option);
-      });
-
-      // Show mods for selected version
-      function displayMods(version) {
-        modsContainer.innerHTML = '';
-        const mods = data[version] || [];
-        mods.forEach(mod => {
-          const card = document.createElement('div');
-          card.className = 'mod-card';
-          card.innerHTML = `
-            <h3>${mod.name} <small>${mod.version}</small></h3>
-            <p>${mod.description ? mod.description.replace(/\\r?\\n/g, '<br>') : ''}</p>
-            <p><strong>Author:</strong> ${mod.author || 'Unknown'}</p>
-            <p><strong>Loader:</strong> ${mod.modloader || 'Unknown'}</p>
-            ${mod.download ? `<a href="${mod.download}" target="_blank">Download</a>` : ''}
-          `;
-          modsContainer.appendChild(card);
+      try {
+        const res = await fetch('mods/index.json');
+        const data = await res.json();
+        // Merge mods so each mod appears once, combine versions
+        const modMap = new Map();
+        Object.keys(data).forEach(bsVersion => {
+          data[bsVersion].forEach(mod => {
+            if (modMap.has(mod.id)) {
+              modMap.get(mod.id).versions.push(bsVersion);
+            } else {
+              modMap.set(mod.id, { ...mod, versions: [bsVersion] });
+            }
+          });
         });
+        const allMods = Array.from(modMap.values());
+        const modsContainer = document.getElementById('modsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const statsEl = document.getElementById('stats');
+        function displayMods(mods) {
+          modsContainer.innerHTML = '';
+          
+          if (mods.length === 0) {
+            modsContainer.innerHTML = '<div class="no-results">No mods found matching your search.</div>';
+            statsEl.textContent = '';
+            return;
+          }
+          statsEl.textContent = `Showing ${mods.length} mod${mods.length !== 1 ? 's' : ''}`;
+          mods.forEach(mod => {
+            const card = document.createElement('div');
+            card.className = 'mod-card';
+            
+            const description = mod.description 
+              ? mod.description.replace(/\r?\n/g, '<br>') 
+              : 'No description available';
+            const versionsHTML = mod.versions
+              .map(v => `<span class="version-tag">${v}</span>`)
+              .join('');
+            
+            card.innerHTML = `
+              <h3>
+                ${mod.name}
+                <small>v${mod.version}</small>
+              </h3>
+              ${mod.description ? `
+                <div class="description-wrapper">
+                  <div class="description">${description}</div>
+                  <div class="show-more-btn" data-mod-id="${mod.id}">Show more</div>
+                </div>
+              ` : ''}
+              <div class="mod-info">
+                <div class="info-row">
+                  <span class="info-label">Author:</span>
+                  <span class="info-value">${mod.author || 'Unknown'}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Loader:</span>
+                  <span class="info-value">${mod.modloader || 'Unknown'}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">BS Versions:</span>
+                  <div class="versions-container" style="position: relative; flex: 1;">
+                    <div class="versions versions-collapsed">${versionsHTML}</div>
+                  </div>
+                </div>
+              </div>
+              ${mod.download ? `<a href="${mod.download}" target="_blank">Download Mod</a>` : ''}
+            `;
+            modsContainer.appendChild(card);
+            
+            // Handle "Show more" functionality
+            const descEl = card.querySelector('.description');
+            const showMoreBtn = card.querySelector('.show-more-btn');
+            const descWrapper = card.querySelector('.description-wrapper');
+            
+            if (descEl && showMoreBtn && descWrapper && mod.description) {
+              // Check if text is actually truncated
+              const isTruncated = descEl.scrollHeight > descEl.clientHeight;
+              
+              if (!isTruncated) {
+                showMoreBtn.style.display = 'none';
+              } else {
+                let popup = null;
+                
+                showMoreBtn.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  
+                  if (popup) {
+                    popup.remove();
+                    popup = null;
+                    showMoreBtn.textContent = 'Show more';
+                    showMoreBtn.classList.remove('expanded');
+                    return;
+                  }
+                  
+                  popup = document.createElement('div');
+                  popup.className = 'description-popup';
+                  popup.innerHTML = description;
+                  descWrapper.appendChild(popup);
+                  showMoreBtn.textContent = 'Show less';
+                  showMoreBtn.classList.add('expanded');
+                  
+                  // Close when clicking outside
+                  const closePopup = (event) => {
+                    if (popup && !popup.contains(event.target) && !showMoreBtn.contains(event.target)) {
+                      popup.remove();
+                      popup = null;
+                      showMoreBtn.textContent = 'Show more';
+                      showMoreBtn.classList.remove('expanded');
+                      document.removeEventListener('click', closePopup);
+                    }
+                  };
+                  
+                  // Add slight delay to prevent immediate closing
+                  setTimeout(() => {
+                    document.addEventListener('click', closePopup);
+                  }, 10);
+                });
+              }
+            }
+            
+            // Add versions click/hover functionality
+            const versionsEl = card.querySelector('.versions');
+            const versionsContainer = card.querySelector('.versions-container');
+            if (versionsEl && versionsContainer && mod.versions.length > 1) {
+              let expandedVersionsEl = null;
+              
+              const showVersions = () => {
+                if (expandedVersionsEl) {
+                  expandedVersionsEl.remove();
+                  expandedVersionsEl = null;
+                  return;
+                }
+                
+                expandedVersionsEl = document.createElement('div');
+                expandedVersionsEl.className = 'versions-expanded';
+                expandedVersionsEl.innerHTML = versionsHTML;
+                versionsContainer.appendChild(expandedVersionsEl);
+                
+                // Close when mouse leaves
+                expandedVersionsEl.addEventListener('mouseleave', () => {
+                  if (expandedVersionsEl) {
+                    expandedVersionsEl.remove();
+                    expandedVersionsEl = null;
+                  }
+                });
+              };
+              
+              versionsEl.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showVersions();
+              });
+            }
+          });
+        }
+        // Initial display: all mods
+        displayMods(allMods);
+        // Search filter
+        searchInput.addEventListener('input', e => {
+          const term = e.target.value.toLowerCase();
+          const filtered = allMods.filter(mod =>
+            mod.name.toLowerCase().includes(term) ||
+            (mod.author && mod.author.toLowerCase().includes(term))
+          );
+          displayMods(filtered);
+        });
+      } catch (err) {
+        console.error('Failed to load mods:', err);
+        document.getElementById('modsContainer').innerHTML = 
+          '<div class="no-results">Failed to load mods. Please check the console for errors.</div>';
       }
-
-      // Initial display
-      displayMods(versions[0]);
-
-      // Change event
-      versionSelect.addEventListener('change', e => {
-        displayMods(e.target.value);
-      });
     }
-
-    loadMods().catch(err => console.error(err));
+    loadMods();
   </script>
 </body>
 </html>
