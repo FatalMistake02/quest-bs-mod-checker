@@ -520,10 +520,10 @@
       "author": "danrouse",
       "authorIcon": "https://avatars.githubusercontent.com/u/128349?v=4",
       "modloader": "QuestLoader",
-      "download": "https://github.com/danrouse/bsq-practice-skipper/releases/download/1.0.0/practice_skipper_v1.0.0.zip",
+      "download": "https://github.com/dannytheliar/bsq-practice-skipper/releases/download/1.0.0/practice_skipper_v1.0.0.zip",
       "dependencies": [],
-      "source": "https://github.com/danrouse/bsq-practice-skipper/",
-      "cover": "https://raw.githubusercontent.com/danrouse/bsq-practice-skipper/master/cover.png",
+      "source": "https://github.com/dannytheliar/bsq-practice-skipper/",
+      "cover": "https://raw.githubusercontent.com/dannytheliar/bsq-practice-skipper/master/cover.png",
       "funding": [],
       "website": null
     },
@@ -1047,10 +1047,10 @@
       "author": "Metalit,  danrouse",
       "authorIcon": "https://avatars.githubusercontent.com/u/128349?v=4",
       "modloader": "QuestLoader",
-      "download": "https://github.com/danrouse/bsq-qounters-minus/releases/download/1.0.2/qounters-minus_v1.0.2.zip",
+      "download": "https://github.com/dannytheliar/bsq-qounters-minus/releases/download/1.0.2/qounters-minus_v1.0.2.zip",
       "dependencies": [],
-      "source": "https://github.com/danrouse/bsq-qounters-minus/",
-      "cover": "https://raw.githubusercontent.com/danrouse/bsq-qounters-minus/master/cover.png",
+      "source": "https://github.com/dannytheliar/bsq-qounters-minus/",
+      "cover": "https://raw.githubusercontent.com/dannytheliar/bsq-qounters-minus/master/cover.png",
       "funding": [],
       "website": null
     },
@@ -2033,10 +2033,10 @@
       "author": "Metalit,  danrouse",
       "authorIcon": "https://avatars.githubusercontent.com/u/128349?v=4",
       "modloader": "QuestLoader",
-      "download": "https://github.com/danrouse/bsq-qounters-minus/releases/download/1.1.0/qounters-minus_v1.1.0.qmod",
+      "download": "https://github.com/dannytheliar/bsq-qounters-minus/releases/download/1.1.0/qounters-minus_v1.1.0.qmod",
       "dependencies": [],
-      "source": "https://github.com/danrouse/bsq-qounters-minus/",
-      "cover": "https://raw.githubusercontent.com/danrouse/bsq-qounters-minus/master/cover.png",
+      "source": "https://github.com/dannytheliar/bsq-qounters-minus/",
+      "cover": "https://raw.githubusercontent.com/dannytheliar/bsq-qounters-minus/master/cover.png",
       "funding": [],
       "website": null
     },
@@ -2048,12 +2048,12 @@
       "author": "danrouse#0214",
       "authorIcon": "https://avatars.githubusercontent.com/u/128349?v=4",
       "modloader": "QuestLoader",
-      "download": "https://github.com/danrouse/bsq-qounters-minus/releases/download/v1.1.1/qounters-minus_v1.1.1.qmod",
+      "download": "https://github.com/dannytheliar/bsq-qounters-minus/releases/download/v1.1.1/qounters-minus_v1.1.1.qmod",
       "dependencies": [],
-      "source": "https://github.com/danrouse/bsq-qounters-minus/",
-      "cover": "https://raw.githubusercontent.com/danrouse/bsq-qounters-minus/master/cover.png",
+      "source": "https://github.com/dannytheliar/bsq-qounters-minus/",
+      "cover": "https://raw.githubusercontent.com/dannytheliar/bsq-qounters-minus/master/cover.png",
       "funding": [],
-      "website": "https://github.com/danrouse/bsq-qounters-minus/"
+      "website": "https://github.com/dannytheliar/bsq-qounters-minus/"
     },
     {
       "name": "Quest Custom Menu Text",
@@ -2575,9 +2575,9 @@
       "author": "danrouse#0214",
       "authorIcon": "https://avatars.githubusercontent.com/u/128349?v=4",
       "modloader": "QuestLoader",
-      "download": "https://github.com/danrouse/bsq-crash-reporter/releases/download/v1.0.0/crash-reporter_v1.0.0.qmod",
+      "download": "https://github.com/dannytheliar/bsq-crash-reporter/releases/download/v1.0.0/crash-reporter_v1.0.0.qmod",
       "dependencies": [],
-      "source": "https://github.com/danrouse/bsq-crash-reporter/",
+      "source": "https://github.com/dannytheliar/bsq-crash-reporter/",
       "cover": null,
       "funding": [],
       "website": null
@@ -2915,10 +2915,10 @@
       "author": "Metalit,  danrouse",
       "authorIcon": "https://avatars.githubusercontent.com/u/128349?v=4",
       "modloader": "QuestLoader",
-      "download": "https://github.com/danrouse/bsq-qounters-minus/releases/download/v1.1.2/qounters-minus_v1.1.2.qmod",
+      "download": "https://github.com/dannytheliar/bsq-qounters-minus/releases/download/v1.1.2/qounters-minus_v1.1.2.qmod",
       "dependencies": [],
-      "source": "https://github.com/danrouse/bsq-qounters-minus/",
-      "cover": "https://raw.githubusercontent.com/danrouse/bsq-qounters-minus/master/cover.png",
+      "source": "https://github.com/dannytheliar/bsq-qounters-minus/",
+      "cover": "https://raw.githubusercontent.com/dannytheliar/bsq-qounters-minus/master/cover.png",
       "funding": [],
       "website": null
     },
@@ -48591,6 +48591,38 @@
       "website": "https://github.com/hardcpp/QuestChatPlexSDK-BS/"
     },
     {
+      "name": "Christmas",
+      "description": "Turn your Beat Saber into a christmas wonderland!",
+      "id": "christmas",
+      "version": "1.0.1",
+      "author": "laynia",
+      "authorIcon": "https://avatars.githubusercontent.com/u/170962081?v=4",
+      "modloader": "Scotland2",
+      "download": "https://github.com/vcmikuu/ChristmasTheme/releases/download/v1.0.1/Christmas.qmod",
+      "dependencies": [
+        {
+          "id": "beatsaber-hook",
+          "version": "^6.4.2"
+        },
+        {
+          "id": "bsml",
+          "version": "^0.4.55"
+        },
+        {
+          "id": "custom-types",
+          "version": "^0.18.3"
+        },
+        {
+          "id": "paper2_scotland2",
+          "version": "^4.6.4"
+        }
+      ],
+      "source": "https://github.com/vcmikuu/ChristmasTheme/",
+      "cover": "https://raw.githubusercontent.com/vcmikuu/ChristmasTheme/main/cover.png",
+      "funding": [],
+      "website": "https://github.com/vcmikuu/ChristmasTheme/"
+    },
+    {
       "name": "Clock Mod",
       "description": "Displays the time in game. Alternatively also the Battery Percentage",
       "id": "ClockMod",
@@ -50781,6 +50813,42 @@
       "website": "https://github.com/raineaeternal/Quest-SongCore/"
     },
     {
+      "name": "SongCore",
+      "description": "Adds songloading, map requirement handling and related utilities to the game.",
+      "id": "songcore",
+      "version": "1.1.26",
+      "author": "Raine & RedBrumbler",
+      "authorIcon": "https://avatars.githubusercontent.com/u/64136899?v=4",
+      "modloader": "Scotland2",
+      "download": "https://github.com/raineaeternal/Quest-SongCore/releases/download/v1.1.26/SongCore.qmod",
+      "dependencies": [
+        {
+          "id": "beatsaber-hook",
+          "version": "^6.4.2"
+        },
+        {
+          "id": "bsml",
+          "version": "^0.4.53"
+        },
+        {
+          "id": "custom-types",
+          "version": "^0.18.3"
+        },
+        {
+          "id": "lapiz",
+          "version": "^0.2.21"
+        },
+        {
+          "id": "paper2_scotland2",
+          "version": "^4.6.4"
+        }
+      ],
+      "source": "https://github.com/raineaeternal/Quest-SongCore/",
+      "cover": "https://raw.githubusercontent.com/raineaeternal/Quest-SongCore/main/cover.jpg",
+      "funding": [],
+      "website": "https://github.com/raineaeternal/Quest-SongCore/"
+    },
+    {
       "name": "SongDownloader",
       "description": "Download Custom Songs at Runtime",
       "id": "songdownloader",
@@ -51334,6 +51402,42 @@
   ],
   "1.41.0_11623": [
     {
+      "name": "BetterHaptics",
+      "description": "Reverts haptic feedback changes without breaking arc and chain notes.",
+      "id": "BetterHaptics",
+      "version": "0.1.2",
+      "author": "Crunkle",
+      "authorIcon": "https://avatars.githubusercontent.com/u/8300099?v=4",
+      "modloader": "Scotland2",
+      "download": "https://github.com/FrozenAlex/BetterHaptics/releases/download/v0.1.2/BetterHaptics.qmod",
+      "dependencies": [
+        {
+          "id": "beatsaber-hook",
+          "version": "^7.4.0"
+        },
+        {
+          "id": "bsml",
+          "version": "^0.5.0"
+        },
+        {
+          "id": "custom-types",
+          "version": "^0.19.0"
+        },
+        {
+          "id": "flamingo",
+          "version": "^1.1.2"
+        },
+        {
+          "id": "paper2_scotland2",
+          "version": "^4.7.0"
+        }
+      ],
+      "source": "https://github.com/FrozenAlex/BetterHaptics/",
+      "cover": null,
+      "funding": [],
+      "website": "https://github.com/FrozenAlex/BetterHaptics/"
+    },
+    {
       "name": "BSML",
       "description": "Library that parses BeatSaber Markup Language to create UI elements",
       "id": "bsml",
@@ -51368,6 +51472,114 @@
       "cover": "https://raw.githubusercontent.com/bsq-ports/Quest-BSML/master/cover.png",
       "funding": [],
       "website": "https://github.com/bsq-ports/Quest-BSML/"
+    },
+    {
+      "name": "Lapiz",
+      "description": "Lapiz makes modders' lives easier by exposing utilities to them cleanly. This mod does nothing on its own.",
+      "id": "lapiz",
+      "version": "0.3.0",
+      "author": "Raine",
+      "authorIcon": "https://avatars.githubusercontent.com/u/64136899?v=4",
+      "modloader": "Scotland2",
+      "download": "https://github.com/raineaeternal/Lapiz/releases/download/v0.3.0/Lapiz.qmod",
+      "dependencies": [
+        {
+          "id": "beatsaber-hook",
+          "version": "^7.4.0"
+        },
+        {
+          "id": "custom-types",
+          "version": "^0.19.0"
+        },
+        {
+          "id": "flamingo",
+          "version": "^1.1.2"
+        },
+        {
+          "id": "paper2_scotland2",
+          "version": "^4.6.1"
+        }
+      ],
+      "source": "https://github.com/raineaeternal/Lapiz/",
+      "cover": null,
+      "funding": [],
+      "website": "https://github.com/raineaeternal/Lapiz/"
+    },
+    {
+      "name": "Nya",
+      "description": "Beat Saber mod for displaying nya-tastic images from various anime themed web APIs!",
+      "id": "Nya",
+      "version": "1.1.7",
+      "author": "FrozenAlex",
+      "authorIcon": "https://avatars.githubusercontent.com/u/8300099?v=4",
+      "modloader": "Scotland2",
+      "download": "https://github.com/FrozenAlex/Nya-quest/releases/download/v1.1.7-bs-1.41.0/Nya.qmod",
+      "dependencies": [
+        {
+          "id": "beatsaber-hook",
+          "version": "^7.4.2"
+        },
+        {
+          "id": "bsml",
+          "version": "^0.5.0"
+        },
+        {
+          "id": "custom-types",
+          "version": "^0.19.0"
+        },
+        {
+          "id": "flamingo",
+          "version": "^1.1.2"
+        },
+        {
+          "id": "paper2_scotland2",
+          "version": "^4.7.0"
+        },
+        {
+          "id": "web-utils",
+          "version": "^0.6.8"
+        }
+      ],
+      "source": "https://github.com/FrozenAlex/Nya-quest/",
+      "cover": "https://raw.githubusercontent.com/FrozenAlex/Nya-quest/main/cover.jpg",
+      "funding": [],
+      "website": "https://github.com/FrozenAlex/Nya-quest/"
+    },
+    {
+      "name": "Smoothed Controller",
+      "description": "Smoothes your Controller position while in menus to make it less shaky, making the UI easier to use, etc.",
+      "id": "smoothedcontroller",
+      "version": "1.7.5",
+      "author": "Kaitlyn, Kinsi55",
+      "authorIcon": "https://avatars.githubusercontent.com/u/8300099?v=4",
+      "modloader": "Scotland2",
+      "download": "https://github.com/FrozenAlex/SmoothedController/releases/download/v1.7.5/SmoothedController.qmod",
+      "dependencies": [
+        {
+          "id": "beatsaber-hook",
+          "version": "^7.4.0"
+        },
+        {
+          "id": "bsml",
+          "version": "^0.5.0"
+        },
+        {
+          "id": "custom-types",
+          "version": "^0.19.0"
+        },
+        {
+          "id": "flamingo",
+          "version": "^1.1.2"
+        },
+        {
+          "id": "paper2_scotland2",
+          "version": "^4.7.0"
+        }
+      ],
+      "source": "https://github.com/FrozenAlex/SmoothedController/",
+      "cover": null,
+      "funding": [],
+      "website": "https://github.com/FrozenAlex/SmoothedController/"
     }
   ],
   "global": [
@@ -51689,6 +51901,30 @@
       "authorIcon": "https://avatars.githubusercontent.com/u/110287845?v=4",
       "modloader": "Scotland2",
       "download": "https://github.com/QuestPackageManager/beatsaber-hook/releases/download/v7.4.1/beatsaber-hook.qmod",
+      "dependencies": [
+        {
+          "id": "flamingo",
+          "version": "^1.1.2"
+        },
+        {
+          "id": "paper2_scotland2",
+          "version": "^4.4.0"
+        }
+      ],
+      "source": "https://github.com/QuestPackageManager/beatsaber-hook/",
+      "cover": null,
+      "funding": [],
+      "website": "https://github.com/QuestPackageManager/beatsaber-hook/"
+    },
+    {
+      "name": "beatsaber-hook",
+      "description": "Provides modding utilities for unity il2cpp games",
+      "id": "beatsaber-hook",
+      "version": "7.4.2",
+      "author": "sc2ad",
+      "authorIcon": "https://avatars.githubusercontent.com/u/110287845?v=4",
+      "modloader": "Scotland2",
+      "download": "https://github.com/QuestPackageManager/beatsaber-hook/releases/download/v7.4.2/beatsaber-hook.qmod",
       "dependencies": [
         {
           "id": "flamingo",
@@ -53210,34 +53446,6 @@
         {
           "id": "beatsaber-hook",
           "version": "^6.2.0"
-        },
-        {
-          "id": "paper2_scotland2",
-          "version": "^4.2.1"
-        }
-      ],
-      "source": "https://github.com/QuestPackageManager/Il2CppQuestTypePatching/",
-      "cover": "https://raw.githubusercontent.com/QuestPackageManager/Il2CppQuestTypePatching/master/cover.png",
-      "funding": [],
-      "website": "https://github.com/QuestPackageManager/Il2CppQuestTypePatching/"
-    },
-    {
-      "name": "custom-types",
-      "description": "Core mod required for other mods to function!",
-      "id": "custom-types",
-      "version": "0.18.5",
-      "author": "Sc2ad",
-      "authorIcon": "https://avatars.githubusercontent.com/u/110287845?v=4",
-      "modloader": "Scotland2",
-      "download": "https://github.com/QuestPackageManager/Il2CppQuestTypePatching/releases/download/v0.18.5/CustomTypes.qmod",
-      "dependencies": [
-        {
-          "id": "beatsaber-hook",
-          "version": "^7.0.0"
-        },
-        {
-          "id": "flamingo",
-          "version": "^1.1.2"
         },
         {
           "id": "paper2_scotland2",
